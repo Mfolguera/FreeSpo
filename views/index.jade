@@ -5,8 +5,17 @@ block content
     script(type='text/javascript').
         // Pass as regular array here
         console.log(colEvents);
-    
-    h1 Current events
-    ul
-        each ev in events
-            li= ev.type
+    each ev in events
+        if ev.type != "OTHER"
+            div(class="row")
+                div(class="col-sm-2")= ev.date
+                div(class="col-sm-2")= ev.sport
+                div(class="col-sm-6")= ev.name
+            div(class="row")
+                div(class="col-sm-12")= ev.channels
+                    each ch in ev.channels
+                        button(type="button" class="btn btn-default btn-lg" aria-label="Play")
+                            span(class="glyphicon glyphicon-play-circle" aria-hidden="true") #{ch.name}
+ 
+                
+            

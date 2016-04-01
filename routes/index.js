@@ -33,6 +33,8 @@ router.get('/', function(req, resp, next) {
 
 module.exports = router;
 
+var AllChannels = new Array();
+
 // Event item in Schedule
 var EventItem = function (rawData) { 
     this.rawData = rawData;
@@ -48,7 +50,12 @@ var EventItem = function (rawData) {
         this.type = "OTHER";
     }
     try {
-        this.channels =   rawData.match("\\)/(.*)").slice(1)[0].split("/"); 
+        this.channels =   rawData.match("\\)/(.*)").slice(1)[0].split("/").map(function(obj){
+            var rObj = {};
+            rObj["name"] = obj;
+            rObj["url"] = "http://arenavision.in/" + obj.toLowerCase();
+            return rObj;
+        }); 
     } catch (error) {
         
     }
