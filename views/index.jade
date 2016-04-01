@@ -1,0 +1,12 @@
+extends layout
+
+block content
+
+    script(type='text/javascript').
+        // Pass as regular array here
+        console.log(colEvents);
+    
+    h1 Current events
+    ul
+        each ev in events
+            li= ev.type
