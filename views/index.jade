@@ -3,25 +3,63 @@ extends layout
 block content
 
     script(type='text/javascript').
+        var chnnls = {};
         $(document).ready(function() {
-            $("div.channel").each(function(index) {
-                var node = this;
-                $.get( "/channel/" + $(this).attr("channel-id"), function( data ) {
-                    $(node).html(data);
-                });
-            });
+            PreChargeChannel(1)
          });
+
+        function PreChargeChannel(i){
+            if (i <= 40) {
+                $.get( "/channel/AV" + i, function( data) {
+                    if (data != "") {
+                        chnnls["AV" + i] == data;    
+                    }
+                    if (i == 40) {
+                        LoadChannels();
+                    }
+                    else {
+                        i++;
+                        PreChargeChannel(i);
+                    }
+                });
+            }
+        }
+        function LoadChannels(){
+            $("div.channel").each(function(index) {
+                var chnlId = $(this).attr("channel-id");
+                var node = this;
+                if (chnnls[chnlId] == undefined) {
+                    $.get( "/channel/" + chnlId, function( data ) {
+                        chnnls[chnlId] == data;
+                        $(node).html(data);
+                    });
+                }
+                else {
+                    $(node).html(chnnls[chnlId]);
+                }
+            });
+        }
         
     each ev in events
         if ev.type != "OTHER"
-            div(class="row top-buffer")
-                div(class="col-sm-2 col-xs-height")= ev.date
-                div(class="col-sm-2 col-xs-height")= ev.sport
-                div(class="col-sm-6 col-xs-height")= ev.name
-            div(class="row top-buffer")
-                div(class="col-sm-12")
-                    each ch in ev.channels
-                        div(class="channel" channel-id="#{ch.name}")
+            div(class="im-centered")
+                div(class="row")
+                    div(class="col-sm-12 event-box col-md-offset-5")
+                        div(class="row")
+                            div(class="col-sm-6 col-xs-height")
+                                h3(class="")= ev.date
+                            div(class="col-sm-6 col-xs-height")
+                                h3(class="")= ev.sport
+                        div(class="row top-buffer")
+                            h3(class="col-sm-12 col-xs-height")
+                                strong= ev.name
+                        div(class="row top-buffer")
+                            div(class="col-sm-12")
+                                each ch in ev.channels
+                                    div(class="channel" channel-id="#{ch.name}")
+                                        div(class="col-sm-4 col-xs-height channel" )
+                                            button(type="button" class="btn btn-default btn-lg  btn-block" aria-label="Play" onclick="location.href='#{token}'")
+                                                span(class="glyphicon glyphicon-refresh glyphicon-refresh-animate" aria-hidden="true")                        
 
  
                 

@@ -61,6 +61,7 @@ var EventItem = function (rawData) {
     }
     try {
         this.sport =   this.name.match("[^:]*").slice(0)[0]; 
+        this.name = this.name.replace(this.sport + ": ", "");
     } catch (error) {
         
     }

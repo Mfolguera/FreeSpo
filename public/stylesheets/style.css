@@ -7,3 +7,26 @@ a {
   color: #00B7FF;
 }
 .top-buffer { margin-top:20px; }
+
+div.event-box {
+    padding: 10px;
+    margin: 10px;
+    background-color: beige;
+}
+
+.glyphicon-refresh-animate {
+   -webkit-animation-name: rotateThis;
+   -webkit-animation-duration: 2s;
+   -webkit-animation-iteration-count: infinite;
+   -webkit-animation-timing-function: linear;
+}
+@-webkit-keyframes "rotateThis" {
+ from { 
+        -webkit-transform: rotate( 0deg );  
+    }
+ to  { 
+        -webkit-transform: rotate( 360deg ); 
+    }
+}
+
+.im-centered { margin: auto; max-width: 700px;}
