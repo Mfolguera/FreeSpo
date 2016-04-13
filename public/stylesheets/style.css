@@ -11,7 +11,11 @@ a {
 div.event-box {
     padding: 10px;
     margin: 10px;
-    background-color: beige;
+    background-color: #e0e6ff;
+    border-radius: 15px 50px;
+    padding: 20px; 
+    -webkit-box-shadow: 0 5px 2px 0 #C2C2C2;
+    box-shadow: 0 2px 5px 0 #C2C2C2;    
 }
 
 .glyphicon-refresh-animate {
