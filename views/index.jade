@@ -75,11 +75,12 @@ block content
                                     strong= ev.name
                             div(class="row top-buffer")
                                 div(class="col-sm-12")
-                                    each ch in ev.channels
-                                        div(class="channel" channel-id="#{ch.name}")
-                                            div(class="col-sm-4 col-xs-height channel" )
-                                                button(type="button" class="btn btn-default btn-lg  btn-block" aria-label="Play" onclick="location.href='#{token}'")
-                                                    span(class="glyphicon glyphicon-refresh glyphicon-refresh-animate" aria-hidden="true")                        
+                                    if ev.channels != null
+                                        each ch in ev.channels
+                                            div(class="channel" channel-id="#{ch.name}")
+                                                div(class="col-sm-4 col-xs-height channel" )
+                                                    button(type="button" class="btn btn-default btn-lg  btn-block" aria-label="Play" onclick="location.href='#{token}'")
+                                                        span(class="glyphicon glyphicon-refresh glyphicon-refresh-animate" aria-hidden="true")                        
 
  
                 

@@ -39,23 +39,24 @@ var AllChannels = new Array();
 var EventItem = function (rawData) { 
     this.rawData = rawData;
     try {
-        this.date =  rawData.match(".+?(?= CET)").slice(0)[0];
+        this.date =  rawData[0] + " " + rawData[1];
     } catch (error) {
         
     }
     try {
-        this.name =  rawData.match("CET (.*) .+?(?=\/)").slice(1)[0];
+        this.name =  rawData[4] + " (" + rawData[3] + ")";
         this.type = "EVENT";
     } catch (error) {
         this.type = "OTHER";
     }
     try {
-        this.channels =   rawData.match("\\)/(.*)").slice(1)[0].split("/").map(function(obj){
+        this.channels =   rawData[5].match(".+?(?= \\[)")[0].split("-").map(function(obj){
             var rObj = {};
             rObj["name"] = obj;
-            rObj["url"] = "http://arenavision.in/" + obj.toLowerCase();
+            rObj["url"] = "http://arenavision.in/av" + obj.toLowerCase();
             return rObj;
         }); 
+        this.language = rawData[5].match("(?<=\\[)(.*)(?=\\])");
     } catch (error) {
         
     }
@@ -72,7 +73,19 @@ function parseSchedule(htmlString) {
     var newHTML = '<ul>';
     var objArray = [];
     $ = cheerio.load(htmlString);
-    $('div.field-item.even p').each(function( index ) {
+    
+    
+    var tbl = $('.field-items tr').get().map(function(row) {
+  return $(row).find('td').get().map(function(cell) {
+    return $(cell).html();
+  });
+});
+    for (i=1; i <= tbl.length-2; i++){
+        var Item = new EventItem(tbl[i]);
+        objArray.push(Item);
+    }
+    
+/*    $('div.field-item.even p').each(function( index ) {
         for(var key in this.children) {
             if (this.children[key].data != undefined) {
                 var itemSched = new EventItem(this.children[key].data );
@@ -81,6 +94,6 @@ function parseSchedule(htmlString) {
             }
         }
     });
-    newHTML += '</ul>'
+    newHTML += '</ul>'*/
     return objArray;
 }
