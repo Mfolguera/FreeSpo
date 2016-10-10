@@ -12,7 +12,7 @@ block content
             if (i <= 40) {
                 $.get( "/channel/AV" + i, function( data) {
                     if (data != "") {
-                        chnnls["AV" + i] == data;    
+                        chnnls["AV" + i] = data;    
                     }
                     if (i == 40) {
                         LoadChannels();
@@ -28,14 +28,14 @@ block content
             $("div.channel").each(function(index) {
                 var chnlId = $(this).attr("channel-id");
                 var node = this;
-                if (chnnls[chnlId] == undefined) {
+                if (chnnls["AV" + chnlId] == undefined) {
                     $.get( "/channel/" + chnlId, function( data ) {
-                        chnnls[chnlId] == data;
+                        chnnls["AV" + chnlId] = data;
                         $(node).html(data);
                     });
                 }
                 else {
-                    $(node).html(chnnls[chnlId]);
+                    $(node).html(chnnls["AV" + chnlId]);
                 }
             });
         }
