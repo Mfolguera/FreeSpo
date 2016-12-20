@@ -6,7 +6,7 @@ var cheerio = require('cheerio');
 /* GET home page. */
 router.get('/', function(req, resp, next) {
     
-    var url = 'http://arenavision.in/agenda'
+    var url = 'http://arenavision.in/schedule'
 
     // use a timeout value of 10 seconds
     var timeoutInMilliseconds = 10*1000
